@@ -1,5 +1,4 @@
 from faker import Faker
-import random
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app import Customer, Restaurant, MenuItem, Order, OrderedItem, Base  # Replace 'app' with the actual module name where your models are defined
