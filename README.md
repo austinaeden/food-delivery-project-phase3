@@ -16,11 +16,6 @@ This repository contains a Python-based food delivery application that manages c
 
 The file also establishes a connection to the SQLite database using SQLAlchemy.
 
-### `cli.py`
-
-`cli.py` contains the Command-Line Interface (CLI) implementation using Click. It provides a set of commands to interact with the food delivery application, including creating customers, restaurants, menu items, orders, and ordered items. The CLI also includes commands for listing menu items and searching for menu items by keyword.
-
-The CLI leverages functions defined within the file, such as `list_menu_items` and `search_menu_items`, to interact with the database.
 
 ### `seed.py`
 
@@ -60,27 +55,7 @@ Before using the food delivery application, make sure you have the following dep
    ```bash
    python seed.py
    ```
-
-4. Use the CLI to interact with the food delivery application. For example:
-
-   ```bash
-   python cli.py create_customer
-   python cli.py create_restaurant
-   python cli.py create_menu_item
-   python cli.py create_order
-   python cli.py create_ordered_item
-   python cli.py list_menu
-   python cli.py search_menu
-   ```
-
-Follow the prompts and messages provided by the CLI to perform various operations within the application.
-
-## Data Structures and Algorithms (DSA)
-
-This application uses data structures such as lists and dictionaries to manage menu items temporarily. While the primary focus of the application is on database interactions, there is potential for further DSA integration in future developments, such as implementing searching or sorting algorithms for menu items.
-
-Feel free to enhance the application by incorporating more DSA concepts as needed.
-
+   
 ## Contribution 
 Thank you for considering contributing to our project! We welcome contributions of all kinds, including bug reports, feature requests, documentation updates, and code contributions.
 
