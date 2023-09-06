@@ -7,160 +7,92 @@
 # alembic revision --autogenerate -m "created tables"
 # alembic upgrade head
 
-from sqlalchemy import ForeignKey, Column, Integer, String, MetaData, Float, create_engine
-from sqlalchemy.orm import relationship, sessionmaker
+from sqlalchemy import create_engine, Column, Integer, Sequence, String, ForeignKey
+from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 
-# Define the naming convention for foreign keys
-convention = {
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-}
-
-# Create a metadata object with the naming convention
-metadata = MetaData(naming_convention=convention)
-
-# Create the base class for all models
-Base = declarative_base(metadata=metadata)
-
 # Define the database connection
-engine = create_engine('sqlite:///restaurants.db')
+DATABASE_URI = 'sqlite:///food_delivery.db'  # the path to the database
+engine = create_engine(DATABASE_URI, echo=True)
 
-# Create a session
+# Base class for all the classes
+Base = declarative_base()
+
+class Customer(Base):
+    __tablename__ = 'customer'
+    cus_id = Column(Integer, Sequence('cus_id_seq'), primary_key=True)
+    username = Column(String)
+    
+    orders = relationship("Order", back_populates="customer")
+
+    def __repr__(self):
+        return f"Username: {self.username}"
+    
+    def orders_list(self):
+        return [order for order in self.orders]
+
+class Restaurant(Base):
+    __tablename__ = 'restaurant'
+    res_id = Column(Integer, Sequence('res_id_seq'), primary_key=True)
+    name = Column(String)
+    location = Column(String)
+    
+    menu_items = relationship("MenuItem", back_populates="restaurant")
+    orders = relationship("Order", back_populates="restaurant")
+
+    def __repr__(self):
+        return f"Name: {self.name}, Location: {self.location}"
+    
+    def menu_items_list(self):
+        return [menu_item for menu_item in self.menu_items]
+
+class MenuItem(Base):
+    __tablename__ = 'menu_item'
+    item_id = Column(Integer, Sequence('item_id_seq'), primary_key=True)
+    name = Column(String)
+    price = Column(Integer)
+    description = Column(String)
+    restaurant_id = Column(Integer, ForeignKey('restaurant.res_id'))
+    
+    restaurant = relationship("Restaurant", back_populates="menu_items")
+    ordered_items = relationship("OrderedItem", back_populates="menu_item")
+
+    def __repr__(self):
+        return f"Name: {self.name}, Price: {self.price}"
+
+class Order(Base):
+    __tablename__ = 'order'
+    order_id = Column(Integer, Sequence('order_id_seq'), primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customer.cus_id'))
+    restaurant_id = Column(Integer, ForeignKey('restaurant.res_id'))
+    
+    customer = relationship("Customer", back_populates="orders")
+    restaurant = relationship("Restaurant", back_populates="orders")
+    ordered_items = relationship("OrderedItem", back_populates="order")
+
+    def __repr__(self):
+        return f"Order ID: {self.order_id}, Customer: {self.customer.username}, Restaurant: {self.restaurant.name}"
+
+class OrderedItem(Base):
+    __tablename__ = 'ordered_item'
+    item_id = Column(Integer, Sequence('item_id_seq'), primary_key=True)
+    menu_item_id = Column(Integer, ForeignKey('menu_item.item_id'))
+    order_id = Column(Integer, ForeignKey('order.order_id'))
+    quantity = Column(Integer)
+
+    menu_item = relationship("MenuItem", back_populates="ordered_items")
+    order = relationship("Order", back_populates="ordered_items")
+
+    def __repr__(self):
+        return f"Order Item ID: {self.item_id}, Menu Item: {self.menu_item.name}, Quantity: {self.quantity}"
+
+# Create session
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Restaurant model
-class Restaurant(Base):
-    __tablename__ = "restaurants"
-
-    # Define restaurant columns
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    price = Column(Float, nullable=False)
-
-    # Define the relationship with Review explicitly
-    reviews = relationship("Review", back_populates="restaurant")
-
-    # Make restaurant object readable
-    def __repr__(self):
-        return f'<Restaurant name:{self.name}, price:{self.price}>'
-
-    # Return all reviews for a specific restaurant
-    def restaurant_reviews(self):
-        reviews = session.query(Review).filter_by(restaurant_id=self.id).all()
-        return reviews
-
-    # Return customers who have made reviews for a specific restaurant
-    def restaurant_customers(self):
-        reviews = session.query(Review).filter_by(restaurant_id=self.id).all()
-        return [review.customer for review in reviews]
-
-    # Return the fanciest restaurant
-    @classmethod
-    def fanciest_restaurant(cls):
-        restaurant = session.query(Restaurant).order_by(Restaurant.price.desc()).first()
-        return restaurant
-
-    # Return all reviews for a given restaurant in a specific format
-    def all_reviews(self):
-        reviews = session.query(Review).filter_by(restaurant_id=self.id).all()
-        return [review.full_review() for review in reviews]
-
-
-# Customer model
-class Customer(Base):
-    __tablename__ = "customers"
-
-    # Define customer columns
-    id = Column(Integer, primary_key=True)
-    first_name = Column(String)
-    last_name = Column(String)
-
-    # Define relationships
-    reviews = relationship("Review", back_populates="customer")
-    restaurants = relationship("Review", back_populates="customer", overlaps="reviews")
-
-    # Make customer object readable
-    def __repr__(self):
-        return f"<Customer {self.first_name} {self.last_name}>"
-
-    # Return all reviews for a specific customer
-    def customer_reviews(self):
-        reviews = session.query(Review).filter_by(customer_id=self.id).all()
-        return reviews
-
-    # Return all restaurants reviewed for a specific customer
-    def customer_restaurants(self):
-        reviews = session.query(Review).filter_by(customer_id=self.id).all()
-        return [review.restaurant for review in reviews]
-
-    # Return the full name of the customer
-    def full_name(self):
-        return f"{self.first_name} {self.last_name}"
-
-    # Return the reviewed restaurant with the highest rating for a specific customer
-    def favorite_restaurant(self):
-        review = session.query(Review).filter_by(customer_id=self.id).order_by(Review.star_rating.desc()).limit(1).first()
-        return review.restaurant
-
-    # Add a review and persist it in the database
-    def add_review(self, restaurant_id, rating):
-        new_review = Review(
-            star_rating=rating,
-            restaurant_id=restaurant_id,
-            customer=self
-        )
-        session.add(new_review)
-        session.commit()
-        return "Review added successfully"
-
-    # Delete a review from the database
-    def delete_review(self, restaurant_id):
-        print(f"Deleting reviews for customer_id={self.id} and restaurant_id={restaurant_id}")
-        reviews = session.query(Review).filter_by(customer_id=self.id, restaurant_id=restaurant_id).all()
-
-        for review in reviews:
-            print(f"Deleting review with id={review.id}")
-            session.delete(review)
-
-        session.commit()
-
-        return "Reviews deleted successfully"
-
-
-# Review model
-class Review(Base):
-    __tablename__ = "reviews"
-
-    # Define review columns
-    id = Column(Integer, primary_key=True)
-    star_rating = Column(Integer)
-    restaurant_id = Column(Integer, ForeignKey('restaurants.id'))
-    customer_id = Column(Integer, ForeignKey('customers.id'))
-
-    # Define the relationships explicitly
-    restaurant = relationship("Restaurant", back_populates="reviews")
-    customer = relationship("Customer", back_populates="reviews")
-
-    # Return the customer for a specific review
-    def review_customer(self):
-        return self.customer
-
-    # Return the restaurant for a specific review
-    def review_restaurant(self):
-        return self.restaurant
-
-    # Make the review object readable
-    def __repr__(self):
-        return f"<Review, Star rating: {self.star_rating}, customer id:{self.customer_id}, restaurant_id:{self.restaurant_id}>"
-
-    # Return the review in a specific format
-    def full_review(self):
-        return f"Review for {self.restaurant.name} by {self.customer.full_name()}  : {self.star_rating} stars"
-
-
 # Test add_review and delete_review methods
-customer1 = session.query(Customer).filter_by(id=20).first()  # Change the ID to the desired customer
-print(customer1.delete_review(42))
-customer2 = session.query(Customer).filter_by(id=10).first()  # Change the ID to the desired customer
-print(customer2.add_review(18, 5))
+# customer1 = session.query(Customer).filter_by(cus_id=20).first()  # Change cus_id to the desired customer
+# print(customer1.delete_review(42))
+# customer2 = session.query(Customer).filter_by(cus_id=10).first()  # Change cus_id to the desired customer
+# print(customer2.add_review(18, 5))
+
