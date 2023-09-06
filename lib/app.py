@@ -1,12 +1,3 @@
-# alembic upgrade head
-# pip install faker
-# alembic init migrations
-# cd lib
-# alembic revision -m "empty init"
-# alembic upgrade head
-# alembic revision --autogenerate -m "created tables"
-# alembic upgrade head
-
 from sqlalchemy import create_engine, Column, Integer, Sequence, String, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
