@@ -1,3 +1,4 @@
+#importing dependancies from sqlalchemy and the faker
 from faker import Faker
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker

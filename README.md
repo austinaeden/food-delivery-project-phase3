@@ -27,7 +27,6 @@ Before using the food delivery application, make sure you have the following dep
 
 - Python 3.x
 - SQLAlchemy
-- Click
 - Faker (for seeding data)
 
 ## Usage
@@ -55,7 +54,7 @@ Before using the food delivery application, make sure you have the following dep
    ```bash
    python seed.py
    ```
-   
+
 ## Contribution 
 Thank you for considering contributing to our project! We welcome contributions of all kinds, including bug reports, feature requests, documentation updates, and code contributions.
 
