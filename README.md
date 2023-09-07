@@ -58,36 +58,36 @@ Before using the food delivery application, make sure you have the following dep
 ## Example Output
 When you run the application, you will see the following output:
 
-```plaintext
-Copy code
-[Orange]Customers:[Reset]
- [Green] Username: customer1[Reset]
- [Green] Username: customer2[Reset]
- [Green] Username: customer3[Reset]
+    ```plaintext
+    Copy code
+    [Orange]Customers:[Reset]
+    [Green] Username: customer1[Reset]
+    [Green] Username: customer2[Reset]
+    [Green] Username: customer3[Reset]
 
-[Orange]
-Restaurants:[Reset]
- [Green] Name: Restaurant A, Location: Location A[Reset]
- [Green] Name: Restaurant B, Location: Location B[Reset]
- [Green] Name: Restaurant C, Location: Location C[Reset]
+    [Orange]
+    Restaurants:[Reset]
+    [Green] Name: Restaurant A, Location: Location A[Reset]
+    [Green] Name: Restaurant B, Location: Location B[Reset]
+    [Green] Name: Restaurant C, Location: Location C[Reset]
 
-[Orange]
-Menu Items:[Reset]
- [Green] Name: Item 1, Price: 10[Reset]
- [Green] Name: Item 2, Price: 15[Reset]
- [Green] Name: Item 3, Price: 20[Reset]
+    [Orange]
+    Menu Items:[Reset]
+    [Green] Name: Item 1, Price: 10[Reset]
+    [Green] Name: Item 2, Price: 15[Reset]
+    [Green] Name: Item 3, Price: 20[Reset]
 
-[Orange]
-Orders:[Reset]
-[Green] Order ID: 1, Customer: customer1, Restaurant: Restaurant A[Reset]
-[Green] Order ID: 2, Customer: customer2, Restaurant: Restaurant B[Reset]
-[Green] Order ID: 3, Customer: customer3, Restaurant: Restaurant C[Reset]
+    [Orange]
+    Orders:[Reset]
+    [Green] Order ID: 1, Customer: customer1, Restaurant: Restaurant A[Reset]
+    [Green] Order ID: 2, Customer: customer2, Restaurant: Restaurant B[Reset]
+    [Green] Order ID: 3, Customer: customer3, Restaurant: Restaurant C[Reset]
 
-[Orange]
-Ordered Items:[Reset]
-[Green] Order Item ID: 1, Menu Item: Item 1, Quantity: 2[Reset]
-[Green] Order Item ID: 2, Menu Item: Item 2, Quantity: 3[Reset]
-[Green] Order Item ID: 3, Menu Item: Item 3, Quantity: 1[Reset]
+    [Orange]
+    Ordered Items:[Reset]
+    [Green] Order Item ID: 1, Menu Item: Item 1, Quantity: 2[Reset]
+    [Green] Order Item ID: 2, Menu Item: Item 2, Quantity: 3[Reset]
+    [Green] Order Item ID: 3, Menu Item: Item 3, Quantity: 1[Reset]
 
 ## Contribution
 Thank you for considering contributing to our project! We welcome contributions of all kinds, including bug reports, feature requests, documentation updates, and code contributions.
