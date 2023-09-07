@@ -88,9 +88,5 @@ class OrderedItem(Base):
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Test add_review and delete_review methods
-# customer1 = session.query(Customer).filter_by(cus_id=20).first()  # Change cus_id to the desired customer
-# print(customer1.delete_review(42))
-# customer2 = session.query(Customer).filter_by(cus_id=10).first()  # Change cus_id to the desired customer
-# print(customer2.add_review(18, 5))
+
 
