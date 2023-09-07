@@ -1,3 +1,5 @@
+markdown
+Copy code
 # Food Delivery Application
 
 This repository contains a Python-based food delivery application that manages customers, restaurants, menu items, orders, and ordered items. The application utilizes SQLAlchemy for database management and Click for building a Command-Line Interface (CLI) to interact with the system.
@@ -15,7 +17,6 @@ This repository contains a Python-based food delivery application that manages c
 - `OrderedItem`: Represents an ordered item with attributes like `item_id`, `menu_item_id`, `order_id`, and `quantity`.
 
 The file also establishes a connection to the SQLite database using SQLAlchemy.
-
 
 ### `seed.py`
 
@@ -35,58 +36,78 @@ Before using the food delivery application, make sure you have the following dep
 
    ```bash
    git clone https://github.com/austinaeden/food-delivery-project-phase3.git
-   ```
 
 2. Install the required Python packages.
 
-   ```bash
-    pip install faker
-    alembic init migrations
-    cd lib
-    alembic revision -m "empty init"
-    alembic upgrade head
-    alembic revision --autogenerate -m "created tables"
-    alembic upgrade head
-   ```
+    '''bash
+    Copy code
+    pip install -r requirements.txt'''
 
 3. Create the SQLite database and populate it with initial data.
 
-   ```bash
-   python seed.py
-   ```
+    '''bash
+    Copy code
+    python seed.py'''
 
-## Contribution 
+4. Run the application to interact with the database and manage customer orders.
+
+    '''bash
+    Copy code
+    python restaurant.py'''
+
+## Example Output
+When you run the application, you will see the following output:
+
+'''plaintext
+Copy code
+[Orange]Customers:[Reset]
+ [Green] Username: customer1[Reset]
+ [Green] Username: customer2[Reset]
+ [Green] Username: customer3[Reset]
+
+[Orange]
+Restaurants:[Reset]
+ [Green] Name: Restaurant A, Location: Location A[Reset]
+ [Green] Name: Restaurant B, Location: Location B[Reset]
+ [Green] Name: Restaurant C, Location: Location C[Reset]
+
+[Orange]
+Menu Items:[Reset]
+ [Green] Name: Item 1, Price: 10[Reset]
+ [Green] Name: Item 2, Price: 15[Reset]
+ [Green] Name: Item 3, Price: 20[Reset]
+
+[Orange]
+Orders:[Reset]
+[Green] Order ID: 1, Customer: customer1, Restaurant: Restaurant A[Reset]
+[Green] Order ID: 2, Customer: customer2, Restaurant: Restaurant B[Reset]
+[Green] Order ID: 3, Customer: customer3, Restaurant: Restaurant C[Reset]
+
+[Orange]
+Ordered Items:[Reset]
+[Green] Order Item ID: 1, Menu Item: Item 1, Quantity: 2[Reset]
+[Green] Order Item ID: 2, Menu Item: Item 2, Quantity: 3[Reset]
+[Green] Order Item ID: 3, Menu Item: Item 3, Quantity: 1[Reset]'''
+
+## Contribution
 Thank you for considering contributing to our project! We welcome contributions of all kinds, including bug reports, feature requests, documentation updates, and code contributions.
 
 To contribute to the project, please follow these steps:
 
-Fork the repository.
-Make your changes.
-Submit a pull request.
+1. Fork the repository.
+2. Make your changes.
+3. Submit a pull request.
 
 ## License
-MIT License 
-Copyright (c) [2023] [Austin Mbogo]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Author
-This project was created by Austin Mbogo. You can contact me at (austin.mbogo@student.moringaschool.com).
+This project was created by Austin Mbogo. You can contact me at austin.mbogo@student.moringaschool.com.
 
 ## Support
-For help, you can contact (austin.mbogo@student.moringaschool.com).
+For help, you can contact austin.mbogo@student.moringaschool.com.
+
+'''css
+Copy code
+
+You can create a `README.md` file in your project's repository and paste this content into it.'''
