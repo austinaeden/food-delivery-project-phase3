@@ -58,7 +58,7 @@ Before using the food delivery application, make sure you have the following dep
 ## Example Output
 When you run the application, you will see the following output:
 
-    ```plaintext
+    ```bash
     Copy code
     [Orange]Customers:[Reset]
     [Green] Username: customer1[Reset]
@@ -89,6 +89,7 @@ When you run the application, you will see the following output:
     [Green] Order Item ID: 2, Menu Item: Item 2, Quantity: 3[Reset]
     [Green] Order Item ID: 3, Menu Item: Item 3, Quantity: 1[Reset]
 
+
 ## Contribution
 Thank you for considering contributing to our project! We welcome contributions of all kinds, including bug reports, feature requests, documentation updates, and code contributions.
 
@@ -107,7 +108,7 @@ This project was created by Austin Mbogo. You can contact me at austin.mbogo@stu
 ## Support
 For help, you can contact austin.mbogo@student.moringaschool.com.
 
-    ```css
+    ```bash
     Copy code
 
     You can create a `README.md` file in your project's repository and paste this content into it.
