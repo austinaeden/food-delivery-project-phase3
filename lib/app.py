@@ -141,15 +141,15 @@ if __name__ == '__main__':
         print("Customer not found.")
 
     # Print the customer's orders
-    print(f"Customer: {customer.username}'s Orders:")
+    print(f"{GREEN}Customer: {customer.username}'s Orders:{RESET}")
     for order in customer.orders:
-        print(f"Order ID: {order.order_id}, Restaurant: {order.restaurant.name}")
-        print("Ordered Items:")
+        print(f"{GREEN}Order ID: {order.order_id}, Restaurant: {order.restaurant.name}{RESET}")
+        print(f"{GREEN}Ordered Items:{RESET}")
         for ordered_item in order.ordered_items:
-            print(f"  Menu Item: {ordered_item.menu_item.name}, Quantity: {ordered_item.quantity}")
+            print(f" {GREEN} Menu Item: {ordered_item.menu_item.name}, Quantity: {ordered_item.quantity}{RESET}")
 
     # Remove an order for the customer
     order_to_remove = customer.orders[0]
     customer.remove_order(order_to_remove)
-    print("Order removed for customer.")
+    print(f"{GREEN}Order removed for customer.{RESET}")
 
