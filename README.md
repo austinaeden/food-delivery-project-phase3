@@ -1,5 +1,3 @@
-markdown
-Copy code
 # Food Delivery Application
 
 This repository contains a Python-based food delivery application that manages customers, restaurants, menu items, orders, and ordered items. The application utilizes SQLAlchemy for database management and Click for building a Command-Line Interface (CLI) to interact with the system.
