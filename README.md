@@ -40,25 +40,22 @@ Before using the food delivery application, make sure you have the following dep
 2. Install the required Python packages.
 
     ```bash
-    Copy code
     pip install -r requirements.txt
 
 3. Create the SQLite database and populate it with initial data.
 
     ```bash
-    Copy code
     python seed.py
 
 4. Run the application to interact with the database and manage customer orders.
 
     ```bash
-    Copy code
     python restaurant.py
 
 ## Example Output
-When you run the application, you will see the following output:
+When you run the application, you will see the following output.
 
-    ```console
+    ```c
     [Orange]Customers:[Reset]
     [Green] Username: customer1[Reset]
     [Green] Username: customer2[Reset]
