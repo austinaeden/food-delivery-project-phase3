@@ -81,7 +81,7 @@ python management.py --view
 
 ## Searching for a customer:
 ```bash
-python management.py --search customer1
+python management.py --search kristinawu
 ```
 
 ## Creating a new customer:
@@ -91,7 +91,7 @@ python management.py --create-customer
 
 ## Adding an order for a customer:
 ```bash
-python management.py --add-order customer1
+python management.py --add-order diana90
 ```
 
 ## Deleting an order for a customer:
