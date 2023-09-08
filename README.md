@@ -1,87 +1,104 @@
-# Food Delivery Application
+# Restaurant Order Management System
 
-This repository contains a Python-based food delivery application that manages customers, restaurants, menu items, orders, and ordered items. The application utilizes SQLAlchemy for database management and Click for building a Command-Line Interface (CLI) to interact with the system.
+This Python project is a restaurant order management system that allows you to manage customers, restaurants, menu items, and orders. It consists of three main Python files: `seed.py`, `app.py`, and `management.py`.
 
-## Files
+## Table of Contents
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Commands](#commands)
+- [License](#license)
 
-### `app.py`
+## Project Structure
 
-`app.py` defines the SQLAlchemy models and the database schema for the food delivery application. It includes the following classes:
+The project consists of the following Python files:
 
-- `Customer`: Represents a customer with attributes like `cus_id` and `username`.
-- `Restaurant`: Represents a restaurant with attributes like `res_id`, `name`, and `location`.
-- `MenuItem`: Represents a menu item with attributes like `item_id`, `name`, `price`, and `description`.
-- `Order`: Represents an order with attributes like `order_id`, `customer_id`, and `restaurant_id`.
-- `OrderedItem`: Represents an ordered item with attributes like `item_id`, `menu_item_id`, `order_id`, and `quantity`.
+1. `seed.py`: This script is responsible for seeding initial data into the database, including customers, restaurants, menu items, and orders. It utilizes the SQLAlchemy ORM and the Faker library to generate mock data.
 
-The file also establishes a connection to the SQLite database using SQLAlchemy.
+2. `app.py`: This file defines the data models and the database schema using SQLAlchemy. It also contains classes for `Customer`, `Restaurant`, `MenuItem`, `Order`, and `OrderedItem`. These classes define the structure of the database tables and their relationships.
 
-### `seed.py`
+3. `management.py`: This script provides a command-line interface (CLI) for managing customer orders. It allows you to view all data, search for customers, create new customers, add orders for customers, and delete orders.
 
-`seed.py` is a script used for seeding initial data into the food delivery application's database. It utilizes the Faker library to generate mock customer data. It creates customers, restaurants, menu items, orders, and ordered items and populates the database with this data.
+## Getting Started
 
-## Prerequisites
+### Prerequisites
 
-Before using the food delivery application, make sure you have the following dependencies installed:
+Before running the project, make sure you have the following prerequisites installed:
 
 - Python 3.x
 - SQLAlchemy
-- Faker (for seeding data)
+- Click
+- Faker
 
-## Usage
-
-1. Clone this repository to your local machine.
-
-   ```bash
-   git clone https://github.com/austinaeden/food-delivery-project-phase3.git
-
-2. Install the required Python packages.
+You can install these dependencies using `pip`:
 
     ```bash
-    pip install -r requirements.txt
+    pip install SQLAlchemy Click Faker
+    ```
 
-3. Create the SQLite database and populate it with initial data.
+
+### Installation
+
+1. Clone the repository to your local machine or download the script files.
+
+2. Navigate to the project directory:
 
     ```bash
-    python seed.py
+    cd restaurant-order-management
+    ```
 
-4. Run the application to interact with the database and manage customer orders.
+### Usage
+To use the Restaurant Order Management System, you can interact with it using the command-line interface provided by the management.py script.
+
+### Running the CLI
+You can run the CLI by executing the following command in your terminal:
 
     ```bash
-    python restaurant.py
+    python management.py [OPTIONS]
+    ```
 
-## Example Output
-When you run the application, you will see the following output.
+Replace [OPTIONS] with one of the available commands described below.
 
-    ```c
-    [Orange]Customers:[Reset]
-    [Green] Username: customer1[Reset]
-    [Green] Username: customer2[Reset]
-    [Green] Username: customer3[Reset]
+### Commands
+- --view: View all data, including customers, restaurants, menu items, orders, and ordered items.
 
-    [Orange]
-    Restaurants:[Reset]
-    [Green] Name: Restaurant A, Location: Location A[Reset]
-    [Green] Name: Restaurant B, Location: Location B[Reset]
-    [Green] Name: Restaurant C, Location: Location C[Reset]
+- --search <username>: Search for a specific customer by their username.
 
-    [Orange]
-    Menu Items:[Reset]
-    [Green] Name: Item 1, Price: 10[Reset]
-    [Green] Name: Item 2, Price: 15[Reset]
-    [Green] Name: Item 3, Price: 20[Reset]
+- --create-customer: Create a new customer.
 
-    [Orange]
-    Orders:[Reset]
-    [Green] Order ID: 1, Customer: customer1, Restaurant: Restaurant A[Reset]
-    [Green] Order ID: 2, Customer: customer2, Restaurant: Restaurant B[Reset]
-    [Green] Order ID: 3, Customer: customer3, Restaurant: Restaurant C[Reset]
+- --add-order <username>: Add an order for a customer by specifying their username.
 
-    [Orange]
-    Ordered Items:[Reset]
-    [Green] Order Item ID: 1, Menu Item: Item 1, Quantity: 2[Reset]
-    [Green] Order Item ID: 2, Menu Item: Item 2, Quantity: 3[Reset]
-    [Green] Order Item ID: 3, Menu Item: Item 3, Quantity: 1[Reset]
+- --delete-order <order_id>: Delete an order for a customer by specifying its order ID.
+
+### Example Usage
+Here are some examples of how to use the CLI commands:
+
+
+## Viewing all data:
+    ```bash
+    python management.py --view
+
+    ```
+
+## Searching for a customer:
+    ```bash
+    python management.py --search customer1
+    ```
+
+## Creating a new customer:
+    ```bash
+    python management.py --create-customer
+    ```
+
+## Adding an order for a customer:
+    ```bash
+    python management.py --add-order customer1
+    ```
+
+## Deleting an order for a customer:
+    ```bash
+    python management.py --delete-order 1
+    ```
 
 
 ## Contribution
@@ -102,5 +119,6 @@ This project was created by Austin Mbogo. You can contact me at austin.mbogo@stu
 ## Support
 For help, you can contact austin.mbogo@student.moringaschool.com.
 
-    ```bash
+    ```
     You can create a `README.md` file in your project's repository and paste this content into it.
+    ```
