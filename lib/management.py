@@ -98,7 +98,25 @@ def add_customer_order(session, customer_username):
     else:
         print(f"{GREEN}Customer not found.{RESET}")
 
+    if menu_items:
+        # Add the order
+        customer.add_order(restaurant, menu_items)
 
+        # Sort the ordered items using a simple DSA algorithm (bubble sort)
+        ordered_items = customer.orders[-1].ordered_items  # Get the ordered items of the latest order
+        ordered_items = bubble_sort_ordered_items(ordered_items)
+
+        print(f"{GREEN}Order added for customer.{RESET}")
+    else:
+        print(f"{GREEN}No items added to the order.{RESET}")
+
+def bubble_sort_ordered_items(ordered_items):
+    n = len(ordered_items)
+    for i in range(n - 1):
+        for j in range(0, n - i - 1):
+            if ordered_items[j].menu_item.name > ordered_items[j + 1].menu_item.name:
+                ordered_items[j], ordered_items[j + 1] = ordered_items[j + 1], ordered_items[j]
+    return ordered_items
 
 
 def delete_customer_order(order_id):
