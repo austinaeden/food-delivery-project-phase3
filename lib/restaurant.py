@@ -1,12 +1,15 @@
 # Importing dependencies from SQLAlchemy
 from app import Customer, Restaurant, MenuItem, Order, OrderedItem, Session
 import click
-from sqlalchemy.orm import sessionmaker
+
 ORANGE = '\033[93m'  # Orange text color
 GREEN = '\033[92m'  # Green text color
-RESET = '\033[0m'    # Reset text color to default
+RESET = '\033[0m'  # Reset text color to default
 
-def print_all_data(session):
+# Create a single global session
+session = Session()
+
+def print_all_data():
     # Print all customers
     print(f"{ORANGE}Customers:{RESET}")
     for customer in session.query(Customer).all():
@@ -43,54 +46,62 @@ def add_customer_order(session, customer_username):
         if session.is_active:
             session.expunge(customer)
         
-        # Prompt the user for restaurant name
-        restaurant_name = input("Enter restaurant name: ")
-        
-        # Detach the restaurant object from the current session if it's attached
-        restaurant = session.query(Restaurant).filter_by(name=restaurant_name).first()
-        if restaurant:
-            session.expunge(restaurant)
-        
-        if restaurant:
-            print(f"{GREEN}Restaurant found:{RESET}")
-            print(f"{GREEN}{restaurant}{RESET}")
+        while True:
+            # Prompt the user for restaurant name
+            restaurant_name = input("Enter restaurant name: ")
+            
+            # Detach the restaurant object from the current session if it's attached
+            restaurant = session.query(Restaurant).filter_by(name=restaurant_name).first()
+            if restaurant:
+                session.expunge(restaurant)
+                break
+            else:
+                print(f"{GREEN}Restaurant not found. Available restaurants are:{RESET}")
+                for r in session.query(Restaurant).all():
+                    print(f"{GREEN}{r.name}{RESET}")
 
-            # Prompt the user for menu items and quantities
-            menu_items = {}
-            try:
-                while True:
-                    item_name = input("Enter menu item name (or leave empty to finish): ")
-                    if not item_name:
-                        break
-                    menu_item = session.query(MenuItem).filter_by(name=item_name).first()
-                    if menu_item:
-                        # Detach the menu item object from the current session if it's attached
-                        session.expunge(menu_item)
-                        
-                        quantity = int(input(f"Enter quantity for {item_name}: "))
-                        menu_items[menu_item] = quantity
-                    else:
-                        print(f"{GREEN}Menu item not found.{RESET}")
+        print(f"{GREEN}Restaurant found:{RESET}")
+        print(f"{GREEN}{restaurant}{RESET}")
 
-                if menu_items:
-                    # Add the order
-                    customer.add_order(restaurant, menu_items)
-                    print(f"{GREEN}Order added for customer.{RESET}")
+        # Prompt the user for menu items and quantities
+        menu_items = {}
+        try:
+            while True:
+                item_name = input("Enter menu item name (or leave empty to finish): ")
+                if not item_name:
+                    break
+                menu_item = session.query(MenuItem).filter_by(name=item_name).first()
+                if menu_item:
+                    # Detach the menu item object from the current session if it's attached
+                    session.expunge(menu_item)
+                    
+                    quantity = int(input(f"Enter quantity for {item_name}: "))
+                    menu_items[menu_item] = quantity
                 else:
-                    print(f"{GREEN}No items added to the order.{RESET}")
+                    print(f"{GREEN}Menu item not found. Available menu items are:{RESET}")
+                    for mi in session.query(MenuItem).all():
+                        print(f"{GREEN}{mi.name}{RESET}")
 
-            except Exception as e:
-                session.rollback()
-                print(f"An error occurred: {str(e)}")
-            finally:
-                session.close()
+            if menu_items:
+                # Add the order
+                customer.add_order(restaurant, menu_items)
+                print(f"{GREEN}Order added for customer.{RESET}")
+            else:
+                print(f"{GREEN}No items added to the order.{RESET}")
 
-        else:
-            print(f"{GREEN}Restaurant not found.{RESET}")
+        except Exception as e:
+            session.rollback()
+            print(f"An error occurred: {str(e)}")
+        finally:
+            session.close()
+
     else:
         print(f"{GREEN}Customer not found.{RESET}")
 
-def delete_customer_order(session, order_id):
+
+
+
+def delete_customer_order(order_id):
     order_to_delete = session.query(Order).filter_by(order_id=order_id).first()
     
     if order_to_delete:
@@ -113,16 +124,26 @@ def delete_customer_order(session, order_id):
     else:
         print(f"{GREEN}Order not found.{RESET}")
 
+def add_customer_and_order():
+    new_customer_username = input("Enter a new customer username: ")
+
+    new_customer = Customer(username=new_customer_username)
+    session.add(new_customer)  # Add the new customer to the session
+    session.commit()
+    print(f"{GREEN}Customer added successfully.{RESET}")
+
+    # Call the add_customer_order function for the newly added customer
+    add_customer_order(session, new_customer_username)
 
 @click.command()
 @click.option('--view', is_flag=True, help='View all data')
 @click.option('--search', default=None, help='Search for a specific customer by username')
+@click.option('--create-customer', is_flag=True, help='Create a new customer')
 @click.option('--add-order', default=None, help='Add an order for a customer by username')
 @click.option('--delete-order', default=None, help='Delete an order for a customer by order ID')
-def main(view, search, add_order, delete_order):
-    session = Session()
+def main(view, search, create_customer, add_order, delete_order):
     if view:
-        print_all_data(session)
+        print_all_data()
     elif search:
         customer = session.query(Customer).filter_by(username=search).first()
         if customer:
@@ -130,14 +151,12 @@ def main(view, search, add_order, delete_order):
             print(f"{GREEN}{customer}{RESET}")
         else:
             print(f"{GREEN}Customer not found.{RESET}")
+    elif create_customer:
+        add_customer_and_order()
     elif add_order:
         add_customer_order(session, add_order)
-    
     elif delete_order:
-        delete_customer_order(session, delete_order)  # Call the new delete function
-
-    # Close the session when done
-    session.close()
+        delete_customer_order(delete_order)  # Call the new delete function
 
 if __name__ == '__main__':
     main()
