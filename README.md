@@ -32,9 +32,9 @@ Before running the project, make sure you have the following prerequisites insta
 
 You can install these dependencies using `pip`:
 
-    ```bash
-    pip install SQLAlchemy Click Faker
-    ```
+```bash
+pip install SQLAlchemy Click Faker
+```
 
 
 ### Installation
