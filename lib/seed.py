@@ -1,9 +1,10 @@
-# Importing dependencies from SQLAlchemy
+# Import the necessary dependencies
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from faker import Faker
 from app import Customer, Restaurant, MenuItem, Order, OrderedItem, Base
 
+# Create a Faker instance
 fake = Faker()
 
 if __name__ == '__main__':
@@ -18,44 +19,44 @@ if __name__ == '__main__':
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    # Create customers
+    # Create customers with fake usernames
     customers = [
-        Customer(username="customer1"),
-        Customer(username="customer2"),
-        Customer(username="customer3"),
+        Customer(username=fake.user_name()) for _ in range(8)
     ]
     session.add_all(customers)
 
-    # Create restaurants
+    # Create restaurants with fake names and locations
     restaurants = [
-        Restaurant(name="Restaurant A", location="Location A"),
-        Restaurant(name="Restaurant B", location="Location B"),
-        Restaurant(name="Restaurant C", location="Location C"),
+        Restaurant(name=fake.company(), location=fake.address()) for _ in range(3)
     ]
     session.add_all(restaurants)
 
-    # Create menu items for each restaurant
+    # Create menu items for each restaurant with fake names, prices, and descriptions
     for restaurant in restaurants:
         menu_items = [
-            MenuItem(name="Item 1", price=10, description="Description 1", restaurant=restaurant),
-            MenuItem(name="Item 2", price=15, description="Description 2", restaurant=restaurant),
-            MenuItem(name="Item 3", price=20, description="Description 3", restaurant=restaurant),
+            MenuItem(
+                name=fake.word(),
+                price=fake.random_int(min=5, max=30),  # Generate random prices
+                description=fake.sentence(),
+                restaurant=restaurant,
+            ) for _ in range(5)
         ]
         session.add_all(menu_items)
 
     # Create orders
     orders = [
-        Order(customer=customers[0], restaurant=restaurants[0]),
-        Order(customer=customers[1], restaurant=restaurants[1]),
-        Order(customer=customers[2], restaurant=restaurants[2]),
+        Order(customer=fake.random_element(customers), restaurant=fake.random_element(restaurants))
+        for _ in range(3)
     ]
     session.add_all(orders)
 
-    # Create ordered items for each order
+    # Create ordered items with random quantities for each order
     ordered_items = [
-        OrderedItem(menu_item=menu_items[0], order=orders[0], quantity=2),
-        OrderedItem(menu_item=menu_items[1], order=orders[1], quantity=3),
-        OrderedItem(menu_item=menu_items[2], order=orders[2], quantity=1),
+        OrderedItem(
+            menu_item=fake.random_element(menu_items),
+            order=fake.random_element(orders),
+            quantity=fake.random_int(min=1, max=5),  # Generate random quantities
+        ) for _ in range(3)
     ]
     session.add_all(ordered_items)
 
