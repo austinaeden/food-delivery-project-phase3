@@ -5,7 +5,7 @@ from sqlalchemy.orm import declarative_base
 
 # Define the database connection
 DATABASE_URI = 'sqlite:///food_delivery.db'  # the path to the database
-engine = create_engine(DATABASE_URI, echo=True)  # Creating a database engine with echoing enabled for debugging
+engine = create_engine(DATABASE_URI, echo=False)  # Creating a database engine with echoing enabled for debugging
 
 # Base class for all the classes
 Base = declarative_base()  

@@ -9,7 +9,7 @@ fake = Faker()
 if __name__ == '__main__':
     # Define the database connection
     DATABASE_URI = 'sqlite:///food_delivery.db'  # the path to the database
-    engine = create_engine(DATABASE_URI, echo=True)
+    engine = create_engine(DATABASE_URI, echo=False)
     
     # Create tables
     Base.metadata.create_all(engine)
