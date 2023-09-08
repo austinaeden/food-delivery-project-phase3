@@ -53,9 +53,9 @@ To use the Restaurant Order Management System, you can interact with it using th
 ### Running the CLI
 You can run the CLI by executing the following command in your terminal:
 
-    ```bash
-    python management.py [OPTIONS]
-    ```
+```bash
+python management.py [OPTIONS]
+```
 
 Replace [OPTIONS] with one of the available commands described below.
 
@@ -75,30 +75,29 @@ Here are some examples of how to use the CLI commands:
 
 
 ## Viewing all data:
-    ```bash
-    python management.py --view
-
-    ```
+```bash
+python management.py --view
+```
 
 ## Searching for a customer:
-    ```bash
-    python management.py --search customer1
-    ```
+```bash
+python management.py --search customer1
+```
 
 ## Creating a new customer:
-    ```bash
-    python management.py --create-customer
-    ```
+```bash
+python management.py --create-customer
+```
 
 ## Adding an order for a customer:
-    ```bash
-    python management.py --add-order customer1
-    ```
+```bash
+python management.py --add-order customer1
+```
 
 ## Deleting an order for a customer:
-    ```bash
-    python management.py --delete-order 1
-    ```
+```bash
+python management.py --delete-order 1
+```
 
 
 ## Contribution
@@ -119,6 +118,6 @@ This project was created by Austin Mbogo. You can contact me at austin.mbogo@stu
 ## Support
 For help, you can contact austin.mbogo@student.moringaschool.com.
 
-    ```
-    You can create a `README.md` file in your project's repository and paste this content into it.
-    ```
+```c
+You can create a `README.md` file in your project's repository and paste this content into it.
+```
