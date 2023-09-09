@@ -98,7 +98,10 @@ python management.py --add-order diana90
 ```bash
 python management.py --delete-order 1
 ```
-
+## Viewing an order for a customer:
+```bash
+python3 management.py --view-orders megan28
+```
 
 ## Contribution
 Thank you for considering contributing to our project! We welcome contributions of all kinds, including bug reports, feature requests, documentation updates, and code contributions.

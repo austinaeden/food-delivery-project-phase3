@@ -153,13 +153,29 @@ def add_customer_and_order():
     # Call the add_customer_order function for the newly added customer
     add_customer_order(session, new_customer_username)
 
+def view_customer_orders(customer_username):
+    customer = session.query(Customer).filter_by(username=customer_username).first()
+    
+    if customer:
+        print(f"{GREEN}Customer found:{RESET}")
+        print(f"{GREEN}{customer}{RESET}")
+        print(f"{ORANGE}Orders:{RESET}")
+        for order in customer.orders:
+            print(f"{GREEN}Order ID: {order.order_id}, Restaurant: {order.restaurant.name}{RESET}")
+            print(f"{GREEN}Ordered Items:{RESET}")
+            for ordered_item in order.ordered_items:
+                print(f"{GREEN}Menu Item: {ordered_item.menu_item.name}, Quantity: {ordered_item.quantity}{RESET}")
+    else:
+        print(f"{GREEN}Customer not found.{RESET}")
+
 @click.command()
 @click.option('--view', is_flag=True, help='View all data')
 @click.option('--search', default=None, help='Search for a specific customer by username')
 @click.option('--create-customer', is_flag=True, help='Create a new customer')
 @click.option('--add-order', default=None, help='Add an order for a customer by username')
 @click.option('--delete-order', default=None, help='Delete an order for a customer by order ID')
-def main(view, search, create_customer, add_order, delete_order):
+@click.option('--view-orders', default=None, help='View orders for a customer by username')
+def main(view, search, create_customer, add_order, delete_order, view_orders):
     if view:
         print_all_data()
     elif search:
@@ -175,6 +191,8 @@ def main(view, search, create_customer, add_order, delete_order):
         add_customer_order(session, add_order)
     elif delete_order:
         delete_customer_order(delete_order)  # Call the new delete function
+    elif view_orders:
+        view_customer_orders(view_orders)
 
 if __name__ == '__main__':
     main()
