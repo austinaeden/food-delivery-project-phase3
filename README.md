@@ -47,7 +47,7 @@ pip install SQLAlchemy Click Faker
     cd restaurant-order-management
     ```
 
-### Usage
+## Usage
 To use the Restaurant Order Management System, you can interact with it using the command-line interface provided by the management.py script.
 
 ### Running the CLI
@@ -74,31 +74,31 @@ Replace [OPTIONS] with one of the available commands described below.
 Here are some examples of how to use the CLI commands:
 
 
-## Viewing all data:
+### Viewing all data:
 ```bash
 python management.py --view
 ```
 
-## Searching for a customer:
+### Searching for a customer:
 ```bash
 python management.py --search kristinawu
 ```
 
-## Creating a new customer:
+### Creating a new customer:
 ```bash
 python management.py --create-customer
 ```
 
-## Adding an order for a customer:
+### Adding an order for a customer:
 ```bash
 python management.py --add-order diana90
 ```
 
-## Deleting an order for a customer:
+### Deleting an order for a customer:
 ```bash
 python management.py --delete-order 1
 ```
-## Viewing an order for a customer:
+### Viewing an order for a customer:
 ```bash
 python3 management.py --view-orders megan28
 ```
@@ -113,6 +113,7 @@ To contribute to the project, please follow these steps:
 3. Submit a pull request.
 
 
+## License
 MIT License 
 Copyright (c) [2023] [Austin Mbogo]
 
