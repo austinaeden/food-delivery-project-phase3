@@ -112,14 +112,32 @@ To contribute to the project, please follow these steps:
 2. Make your changes.
 3. Submit a pull request.
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+
+MIT License 
+Copyright (c) [2023] [Austin Mbogo]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ## Author
-This project was created by Austin Mbogo. You can contact me at austin.mbogo@student.moringaschool.com.
+This project was created by Austin Mbogo. You can contact me at (austin.mbogo@student.moringaschool.com).
 
 ## Support
-For help, you can contact austin.mbogo@student.moringaschool.com.
+For help, you can contact (austin.mbogo@student.moringaschool.com).
 
 ```c
 You can create a `README.md` file in your project's repository and paste this content into it.
